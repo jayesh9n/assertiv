@@ -1,0 +1,186 @@
+ 
+
+$primary: #3498db; 
+$secondary: #2ecc71; 
+$success: #28a745;
+$info: #17a2b8;
+$warning: #ffc107;
+$danger: #dc3545;
+$light: #f8f9fa;
+$dark: #343a40;
+$black: #000000;
+$white: #ffffff;
+$light-info:#4fcce5;
+$color_1: #55593e; 
+
+ 
+$grid-breakpoints: (
+  xs: 0,
+  sm: 577px,
+  md: 768px,
+  lg: 992px,
+  xl: 1201px,
+  xxl: 1401px
+);
+
+$font-sizes: (
+  "xs": 0.75rem,
+  "sm": 0.875rem,
+  "md": 1rem,
+  "lg": 1.25rem,
+  "xl": 1.5rem,
+  "xxl": 2rem,
+  "18": "18px", 
+  "25": "25px", 
+);
+
+@each $name, $size in $font-sizes {
+  .fs-#{$name} {
+    font-size: $size !important;
+  }
+}
+$spacers-large: (
+  0: 0,
+  1: 0.25rem,
+  2: 0.5rem,
+  3: 1rem,
+  4: 1.5rem,
+  5: 3rem,
+  6: 4rem,
+  15: 15px,
+  20: 20px,
+  30: 30px,
+  70: 90px,
+);
+
+$spacers-medium: (
+  0: 0,
+  1: 0.25rem,
+  2: 0.5rem,
+  3: 1rem,
+  4: 1.5rem,
+  5: 2.5rem,
+  6: 3rem,
+  15: 12px,
+  20: 16px,
+  30: 24px,
+  70: 48px,
+);
+
+$spacers-small: (
+  0: 0,
+  1: 0.125rem,
+  2: 0.25rem,
+  3: 0.5rem,
+  4: 0.75rem,
+  5: 1.5rem,
+  6: 2rem,
+  15: 7.5px,
+  20: 10px,
+  30: 15px,
+  70: 35px,
+);
+
+
+
+@function get-spacer($size, $breakpoint: small) {
+  @if $breakpoint == small {
+    @return map-get($spacers-small, $size);
+  } @else if $breakpoint == medium {
+    @return map-get($spacers-medium, $size);
+  } @else if $breakpoint == large {
+    @return map-get($spacers-large, $size);
+  } @else {
+    @return null;
+  }
+}
+@mixin responsive-spacers {
+  // Small screens (default)
+  @each $key, $value in $spacers-small {
+    .m-#{$key} {
+      margin: get-spacer($key, small);
+    }
+    .p-#{$key} {
+      padding: get-spacer($key, small);
+    }
+    // Add py-, my-, pe-, and ps- prefixes for small screens
+    .py-#{$key} {
+      padding-top: get-spacer($key, small);
+      padding-bottom: get-spacer($key, small);
+    }
+    .my-#{$key} {
+      margin-top: get-spacer($key, small);
+      margin-bottom: get-spacer($key, small);
+    }
+    .pe-#{$key} {
+      padding-left: get-spacer($key, small);
+      padding-right: get-spacer($key, small);
+    }
+    .ps-#{$key} {
+      padding-right: get-spacer($key, small);
+      padding-left: get-spacer($key, small);
+    }
+  }
+
+  // Medium screens
+  @media (max-width: 768px) {
+    @each $key, $value in $spacers-medium {
+      .m-#{$key}-md {
+        margin: get-spacer($key, medium);
+      }
+      .p-#{$key}-md {
+        padding: get-spacer($key, medium);
+      }
+      // Add py-, my-, pe-, and ps- prefixes for medium screens
+      .py-#{$key}-md {
+        padding-top: get-spacer($key, medium);
+        padding-bottom: get-spacer($key, medium);
+      }
+      .my-#{$key}-md {
+        margin-top: get-spacer($key, medium);
+        margin-bottom: get-spacer($key, medium);
+      }
+      .pe-#{$key}-md {
+        padding-left: get-spacer($key, medium);
+        padding-right: get-spacer($key, medium);
+      }
+      .ps-#{$key}-md {
+        padding-right: get-spacer($key, medium);
+        padding-left: get-spacer($key, medium);
+      }
+    }
+  }
+
+  // Large screens
+  @media (max-width: 1200px) {
+    @each $key, $value in $spacers-large {
+      .m-#{$key}-lg {
+        margin: get-spacer($key, large);
+      }
+      .p-#{$key}-lg {
+        padding: get-spacer($key, large);
+      }
+      // Add py-, my-, pe-, and ps- prefixes for large screens
+      .py-#{$key}-lg {
+        padding-top: get-spacer($key, large);
+        padding-bottom: get-spacer($key, large);
+      }
+      .my-#{$key}-lg {
+        margin-top: get-spacer($key, large);
+        margin-bottom: get-spacer($key, large);
+      }
+      .pe-#{$key}-lg {
+        padding-left: get-spacer($key, large);
+        padding-right: get-spacer($key, large);
+      }
+      .ps-#{$key}-lg {
+        padding-right: get-spacer($key, large);
+        padding-left: get-spacer($key, large);
+      }
+    }
+  }
+}
+
+
+// Include the mixin
+@include responsive-spacers;
