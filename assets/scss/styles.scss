@@ -19,8 +19,8 @@
   --spacer-70: 70px;
 
   @include media-breakpoint-down(lg) {
-  --fs-25: 22px;
-  --spacer-20: 18px;
+    --fs-25: 22px;
+    --spacer-20: 18px;
     --spacer-30: 26px;
     --spacer-70: 50px;
   }
@@ -80,6 +80,28 @@ body {
   }
 }
 
+h6,
+.h6,
+h5,
+.h5,
+h4,
+.h4,
+h3,
+.h3,
+h2,
+.h2,
+h1,
+.h1,
+p,
+.p,
+span,
+label,
+a,
+div {
+  color: $light-blue;
+}
+
+
 h1,
 h2 {
   margin: 20px 10px;
@@ -91,6 +113,9 @@ p {
 
 a {
   text-decoration: none;
+}
+li {
+  list-style: none;
 }
 
 .bg-light-info {
@@ -180,6 +205,16 @@ a {
 .section-title {
   font-size: var(--fs-18);
 }
+.border-bottom-all {
+  li {
+    border-bottom:1px solid rgba(0, 0, 0, 0.2) ;
+    }
+}
+.border-bottom-last {
+  li:not(:last-child) {
+    border-bottom:1px solid rgba(0, 0, 0, 0.2) ;
+    }
+}
 
 .hiring-modal-block {
   // background: radial-gradient(#56c5db47, #040404);
@@ -262,7 +297,7 @@ a {
   background: radial-gradient(#56c5db47, #040404);
 
   &:hover {
-    color: $light-info;
+    color: $primary;
   }
 }
 
@@ -310,6 +345,20 @@ a {
 header {
   padding: 20px 0;
   border-bottom: 1px solid $white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  
+  transition: all 0.3s ease;  
+  &.fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+  background: $black;
+  z-index: 1000;  
+}
+
+  @include media-breakpoint-down(lg) {
+    padding: 20px 10px 20px 10px;
+  }
 
   .menu-wrap {
     .menubar-icon {
@@ -380,22 +429,24 @@ header {
         position: absolute;
         left: 0;
         right: 0;
-        top: 90px;
+        top: 75px;
+        bottom: 0;
         background: $white;
         z-index: 999999;
         overflow-y: auto;
-        max-height: calc(100vh - 90px);
+        max-height: calc(100vh - 73px);
       }
 
-      li {
+      > li {
         list-style: none;
-        padding: 10px;
+        padding: 10px 15px;
         position: relative;
 
         @include media-breakpoint-down(lg) {
           max-width: 720px;
           margin: 0 auto;
-          padding-inline: 1.5rem;
+          padding-inline: 13px;
+          border-bottom:1px solid rgba(0, 0, 0, 0.2) ;
         }
 
         @include media-breakpoint-down(md) {
@@ -405,15 +456,32 @@ header {
         a {
           color: $white;
           text-decoration: none;
-          font-size: var(--fs-18);
+          font-size: 18px;
 
           @include media-breakpoint-down(lg) {
             color: $black;
+            display: flex;
+            justify-content: space-between;
+          } 
+          img {
+            @include media-breakpoint-down(lg) {
+              filter: invert(42%) sepia(100%) saturate(100%) hue-rotate(400deg) brightness(17%) contrast(14%);
+              margin-top: 5px;
+            }
           }
         }
 
         &:hover .submenu-wrap {
           display: block;
+        }
+
+        &:hover a img {
+          @include media-breakpoint-up(lg) {
+
+          transform: rotate(180deg);
+          transition: all 0.2s ease-in;
+          }
+
         }
 
 
@@ -434,10 +502,18 @@ header {
       padding: 5px;
       border-radius: 4px;
       -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
-      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
-
-      @include media-breakpoint-up(lg) {
-        // transition: all 0.6s linear;
+      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05); 
+      @include media-breakpoint-down(lg) {
+      -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05) !important;
+      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05) !important;
+      // transition: all 0.6s linear;
+      }
+      ul {
+        li{
+          a {
+            font-size: 16px;
+          }
+        }
       }
 
       @include media-breakpoint-down(lg) {
@@ -470,7 +546,7 @@ header {
         li {
           cursor: pointer;
           padding: 5px 15px;
-
+         
           &:hover {
             background: $black;
             border-radius: 5px;
@@ -505,7 +581,7 @@ header {
 }
 
 .footer-leftblock {
-  background-color: $light-info;
+  background-color: $primary;
   width: 49%;
   height: 100%;
 
@@ -593,7 +669,7 @@ header {
 
   .footer-form-group {
     position: relative;
-    width: calc(50% - 12px);
+    width: calc(50% - 6px);
 
     .footer-placeholder {
       position: absolute;
@@ -719,7 +795,7 @@ header {
       background: $light-info;
       color: $black;
 
-      img { 
+      img {
         filter: invert(0%) !important;
       }
     }
@@ -835,7 +911,7 @@ header {
     }
 
     input {
-      background: $light-info;
+      background: $primary;
       border-radius: 5px;
       border: none;
       width: 100%;
@@ -887,7 +963,7 @@ header {
       margin-top: 0;
       margin-bottom: 20px;
       font-weight: 400;
-      color: #ff7a2f;
+      color: $light-info;
 
       @include media-breakpoint-down(sm) {
         margin-bottom: 10px;
@@ -1029,7 +1105,7 @@ header {
 
   .client-carousel {
     .testimonial-item {
-      background: $light-info;
+      background: $primary;
       padding: 12px;
       border-radius: 8px;
       box-shadow: 0px 5px 9px #242e2f;
@@ -1039,6 +1115,7 @@ header {
 
         img {
           border-radius: 8px;
+          max-height: 240px;
         }
       }
     }
@@ -1056,7 +1133,7 @@ header {
   }
 
   .accordion-button {
-    background-color: $light-info;
+    background-color: $primary;
     color: $white;
 
     &:focus {
@@ -1069,7 +1146,7 @@ header {
 
     &:not(.collapsed) {
       color: $white;
-      background-color: $light-info;
+      background-color: $primary;
       box-shadow: none !important;
     }
   }
@@ -1084,6 +1161,7 @@ header {
 .arrow-animation {
   ul {
     padding-left: 0px;
+
     @include media-breakpoint-down(md) {
       margin-bottom: 0px;
     }
@@ -1095,8 +1173,9 @@ header {
       padding: 5px 8px;
       position: relative;
       font-size: 25px;
+
       @include media-breakpoint-down(lg) {
-      font-size: 19px; 
+        font-size: 19px;
       }
 
       i {
@@ -1144,5 +1223,30 @@ header {
 
   100% {
     opacity: 1;
+  }
+}
+
+.container-md, .container-sm, .container {
+@include media-breakpoint-down(sm) {
+      max-width: 96%;
+  }
+}
+
+.counter {
+  font-size: 3rem;
+  font-weight: bold;
+}
+.counter-container {
+  margin: 50px 0;
+  text-align: center;
+}
+.trusted-client {
+  .trusted-img {
+    min-width: 200px;
+  }
+}
+.trusted-client1 {
+  .trusted-img {
+    min-width: 200px;
   }
 }
